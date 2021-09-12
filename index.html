@@ -1,0 +1,205 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>Калькулятор радиаторов</title>
+</head>
+	<body>
+		<div id="app">
+			<header>
+				
+			</header>
+			<main class="app-wrapper unselectable">
+				<!-- Площадь помещения -->
+				<div class="app-section area">
+					<p class="title">Площадь помещения (кв.м.)</p>
+					<div class="app-wrapper__block area__room block-white unselectable" @click="mainSlider">
+						<div class="concat minus" ref="areaMinus">-</div><span class="valueArea">{{ resultValues.S }}</span><div class="concat plus"  ref="areaPlus">+</div>
+						<div class="main">
+							<input type="range" min="1" max="100" value="50" id="slider" ref="slider" @input="mainSlider" v-model="resultValues.S">
+							<div id="selector" ref="selector">
+								<div class="selectBtn"></div>
+							</div>
+							<div id="progressBar" ref="progressBar"></div>
+						</div>
+					</div>
+					<p class="title">Высота потолков (мм)</p>
+					<div class="app-wrapper__block area__height block-white " @click="sliderHeight">
+						<div class="helper">
+							<div class="helper__modal" >
+								<p>Чем выше потолки, тем больше тепла нужно для отопления помещения</p>
+							</div>
+							<img src="./img/hint.svg" alt="">
+						</div>
+						<div class="concat minus" ref="HeightMinus">-</div><span class="valueHeight">{{ valueHeight }}</span><div class="concat plus"  ref="HeightPlus">+</div>
+						<div class="heightMain">
+							<input id="sliderHeight" ref="sliderHeight" type="range" name="" max="10" @input="sliderHeight" value="5">
+							<div id="selectorHeight" ref="selectorHeight">
+								<div class="selectBtnHeight"></div>
+							</div>
+							<div id="progressBarHeight" ref="progressBarHeight"></div>
+						</div>
+					</div>
+					<p class="title">Тип помещения</p>
+					<div class="app-wrapper__block area__type">
+						<div class="fake__select animation">
+							
+						</div>
+						<select class="select">
+							<option v-for="areaType in ValuesTypeArea" :key="areaType.id">{{ areaType.name }}</option>
+						</select>
+					</div>
+				</div>
+
+				<!-- Материал радиатора -->
+				<p class="title title-line">Материал радиатора</p>
+				<div class="app-section material-radiators" @click="ModelsRadiator">
+					<div class="helper">
+							<div class="helper__modal" >
+								<p>Среднее значение на секцию по типу радиатора</p>
+							</div>
+							<img src="./img/hint.svg" alt="">
+						</div>
+					<div class="buttons-material block-white"
+					 v-for="button in buttonsMaterial" 
+					 :class="{ active: button.active }" 
+					 :key="button.id" 
+					 @click="ChangeMaterial(button.id)"
+					 >{{ button.name }}</div>
+				</div>
+<!-- 				<p class="title title-line title-min-line">Модель радиатора</p>
+				<div class="app-section mark-radiators">
+					<div class="mark-radiator" v-for="current in CurrentModels" :key="current.id">{{ current.name }}</div>
+				</div> -->
+				<p class="title title-line title-min-line">Паспортная мощность <span v-if="TypeRadiator == 'Steel'">радиатора</span><span v-else="">секции</span></p>
+				<div class="app-section mark-radiators">
+					<div class="helper">
+							<div class="helper__modal" >
+								<p>Значение на секцию для для определенного радиатора</p>
+							</div>
+							<img src="./img/hint.svg" alt="">
+						</div>
+					<input class="pasport" type="number" name="" v-model="defaultValueMaterial">
+				</div>
+				<p class="title title-line">Стены</p>
+				<!-- Стены -->
+				<div class="app-section walls">
+					<p class="title">Количество наружных стен</p>
+					<div class="walls__exterior">
+						<div class="fake__select animation">
+							
+						</div>
+						<select class="select" data="A" v-model="resultValues.A">
+							<option 
+							v-for="valueWalls in WallsExterior" 
+							:key="valueWalls.id" 
+							:value="valueWalls.value"
+							>{{ valueWalls.id }}</option>
+						</select>
+					</div>
+					<p class="title">Степень утепления стен</p>
+					<div class="walls__insulation">
+						<div class="fake__select animation">
+							
+						</div>
+						<select class="select" data="C" v-model="resultValues.C">
+							<option v-for="valueInsulation in WallsInsulation" 
+							:key="valueInsulation.id"
+							:value="valueInsulation.value"
+							>{{ valueInsulation.dp }}</option>
+						</select>
+					</div>
+						<p class="title">Помещение сверху</p>
+						<div class="room__above">
+							<div class="fake__select animation">
+							
+						</div>
+						<select class="select" data="F" v-model="resultValues.F">
+							<option v-for="ValueRoom in RoomAbove" 
+							:key="ValueRoom.id"
+							:value="ValueRoom.value"
+							>{{ ValueRoom.dp }}</option>
+						</select>
+						</div>
+				</div>
+
+				<!-- Окна -->
+				<div class="app-section windows">
+					<p class="title title-line">Окна</p>
+
+					<p class="title">Тип установленных окон</p>
+					<div class="walls__insulation">
+						<div class="fake__select animation">
+							
+						</div>
+						<select class="select" data="G" v-model="resultValues.G">
+							<option v-for="ValueType in TypeWindow" 
+							:key="ValueType.id"
+							:value="ValueType.value"
+							>{{ ValueType.dp }}</option>
+						</select>
+					</div>
+					<!-- Компонента для окон -->
+					<items-page  v-for="(count, index) in counter" :key="index"
+					:windowstotal="windowstotal"
+					:index="index"
+					@addwindow="addwindow"
+					></items-page>
+					<!-- Кнопка добавить окна -->
+					<div class="add-windows">
+						<div class="btn-add-window" @click="windowbutton"></div>
+						<span>Добавить окна</span>
+					</div>
+				</div>
+
+				<!-- Схема подключения радиатора -->
+				<p class="title title-line">Схема подключения радиатора</p>
+				<div class="app-section scheme-features">
+					<div class="scheme-item" 
+					v-for="connect in ValuesConnecting" 
+					:key="connect.id" 
+					:class="{ active: connect.active }" 
+					@click="ChangeConnect(connect.id)"
+					>
+						<img :src="connect.src" alt="">
+					</div>
+				</div>
+				<!--Особенности установки радиатора-->
+				<div class="app-section windows installation-features">
+					<p class="title title-line">Особенности установки радиатора</p>
+					<p class="title">Варианты установки</p>
+					<div class="walls__insulation">
+						<div class="fake__select animation">
+							
+						</div>
+						<select class="select" data="J" v-model="resultValues.J">
+							<option v-for="ValueInstallation in ValuesFeaturesInstallations" 
+							:key="ValueInstallation.id"
+							:value="ValueInstallation.value"
+							>{{ ValueInstallation.dp }}</option>
+						</select>
+					</div>
+				</div>
+				<!-- Расчет -->
+				
+				<div class="result">
+					<div class="btn-result" @click="winAll">Расчитать</div>
+					<div class="resultValues">
+						<span>Количеcтво <span v-if="TypeRadiator == 'Steel'">радиаторов</span><span v-else="">секций</span></span>
+						<span ref="section"> {{ valueSection }} </span>
+						<span>Количество Вт</span>
+						<span ref="power">{{ allPower }}</span>
+					</div>
+					
+				</div>
+			</main>
+			<footer id="footer">
+
+			</footer>
+		</div>
+	<script src="vue.js"></script>
+	<script src="app.js"></script>
+	</body>
+</html>
