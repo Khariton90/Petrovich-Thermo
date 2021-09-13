@@ -56,7 +56,7 @@ img{
 	text-align: center;
 	margin: 0 0 18px 0;
 	font-weight: 300;
-	font-size: 28px;
+	font-size: calc(20px + 8 * ((100vw - 375px)/ (1920 - 375)));
 }
 /*Подблок в блоках*/
 .app-wrapper__block{
@@ -75,7 +75,7 @@ img{
 	grid-template-columns: auto 1fr auto;
 	grid-template-rows: 1fr 1fr;
 	font-weight: 500;
-	font-size: 48px;
+	font-size: calc(32px + 16 * ((100vw - 375px)/ (1920 - 375)));
 	line-height: 56px;
 	padding: 10px;
 }
@@ -83,7 +83,7 @@ img{
 
 input[type=number]{
 	font-weight: 500;
-	font-size: 48px;
+	font-size: calc(32px + 16 * ((100vw - 375px)/ (1920 - 375)));
 	line-height: 56px;
 	text-align: center;
 }
@@ -268,6 +268,7 @@ select{
 	width: 360px;
 	height: 50px;
 	margin: 24px auto;
+	max-width: 100%;
 }
 .walls__insulation,.room__above{
 	width: 100%;
@@ -454,7 +455,7 @@ select{
 	flex-direction: column;
 	align-items: center;
 	font-weight: bold;
-	font-size: 36px;
+	font-size: calc(20px + 16 * ((100vw - 375px)/ (1920 - 375)));
 	line-height: 42px;
 	padding-top: 42px;
 	max-width: 556px;
@@ -746,16 +747,21 @@ input[type=range].styled-slider {
     stroke-dashoffset: 400;
 }
 .header{
-	height: 80px;
+	height: 100%;
 	position: fixed;
-	width: auto;
+	width: 100%;
 	top: 0;
 	right: 0;
-	display: inline-flex;
+	display:flex;
 	justify-content: flex-end;
-	align-items: center;
-	padding: 0 30px;
+	align-items: flex-start;
+	padding: 30px;
+	z-index: 0;
+	transition: all 1s ease;
+}
+.header.active{
 	z-index: 100;
+	transition: all 1s ease;
 }
 .header__burger{
 	opacity: 0;
@@ -815,8 +821,8 @@ input[type=range].styled-slider {
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	background: #f7f7f7;
 	z-index: 100;
 	transform: translateX(100%);
@@ -910,11 +916,15 @@ ul{
 }
 .pasport-block{
 	position: relative;
+	max-width: 100%;
+}
+.pasport-block input{
+	max-width: 100%;
 }
 .pas-min-plus{
 	position: absolute;
 	font-weight: 500;
-    font-size: 48px;
+    font-size: calc(32px + 16 * ((100vw - 375px)/ (1920 - 375)));
 	top: 13px;
 	cursor: pointer;
 }
@@ -938,6 +948,15 @@ ul{
 	.helper{
 		display: none;
 	}
+	.buttons-material {
+		margin: 10px;
+	}
+	.window-item {
+		margin: 10px;
+	}
+	.scheme-features {
+		justify-content: center;
+	}
   }
 @media(max-width:960px){
 	.app-wrapper {
@@ -948,14 +967,33 @@ ul{
 	}
 }
 
-@media print{
-	body{
-		margin: 100px 0;
+@media(max-width:600px){
+	.area__room, .area__height {
+		line-height: 41px;
 	}
-	.blanc{
-		width: 100%;
-		margin: 0 auto;
-		height: 100vh;
-		background: red;
-	}	
+	.blanc {
+		width: 90%;
+	}
+	.scheme-item{
+		margin: 12px 19px;
+	}
+	.app-wrapper {
+		max-width: 320px;
+		padding: 30px 0;
+	}
+	.valuesWindows {
+		justify-content: center;
+		flex-wrap: wrap;
+		height: auto;
+	}
+	select {
+		font-size: 12px;
+		padding-left: 3px;
+	}
+	#progressBar,#progressBarHeight {
+		bottom: 10px;
+	}
+	/* #selector,#selectorHeight{
+		bottom: -15px;
+	} */
 }

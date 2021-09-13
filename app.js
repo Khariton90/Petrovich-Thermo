@@ -299,8 +299,9 @@ new Vue({
 		menuToggle(){
 			let description = this.$refs.description;
 			description.classList.toggle('active');
-			this.menu ? this.menu = false : this.menu = true
-			document.body.classList.toggle('lock')
+			this.menu ? this.menu = false : this.menu = true;
+			document.body.classList.toggle('lock');
+			document.querySelector('.header').classList.toggle('active');
 			if(this.menu){
 				var tl = gsap.timeline({repeat: 0, delay: 0});
 				tl.from('.blanc', {opacity: 0, x: 600, duration: 1.2});
