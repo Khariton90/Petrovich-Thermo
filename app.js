@@ -79,35 +79,36 @@ const ItemsPage = {
 new Vue({
 	el: '#app',
 	data:{
-
-			cofH: 2.25,
+			show: false,
+			print: false,
+			menu: false,
 			valueHeight: 3000,
 			counter: 1,
 			defaultValueMaterial: 147,
 			buttonsMaterial: [
 			{ id:0, name: 'Алюминий', type: 'Alum', value: 147, active: true },
-			{ id:1, name: 'Металл', type: 'Steel', value: 100, active: false },
+			{ id:1, name: 'Металл', type: 'Steel', value: 800, active: false },
 			{ id:2, name: 'Биметалл', type: 'BM', value: 164, active: false },
 			],
-			Models: [
-				{ id: 0, name: 'ATM THERMO', type: 'Alum', value: 114 },
-				{ id: 1, name: 'AXIS', type: 'Alum', value: 114 },
-				{ id: 2, name: 'FONDITAL', type: 'Alum', value: 114 },
-				{ id: 3, name: 'Gekon', type: 'Alum', value: 114 },
-				{ id: 4, name: 'Global', type: 'Alum', value: 114 },
-				{ id: 5, name: 'Irsap', type: 'Alum', value: 114 },
-				{ id: 6, name: 'KZTO', type: 'Alum', value: 114 },
-				{ id: 7, name: 'CTM', type: 'Alum', value: 114 },
-				{ id: 8, name: 'AXIS', type: 'Steel', value: 114 },
-				{ id: 9, name: 'Irsap', type: 'Steel', value: 114 },
-				{ id: 10, name: 'Purmo', type: 'Steel', value: 114 },
-				{ id: 11, name: 'ATM THERMO', type: 'BM', value: 114 },
-				{ id: 12, name: 'FONDITAL', type: 'BM', value: 114 },
-				{ id: 13, name: 'Global', type: 'BM', value: 114 },
-				{ id: 14, name: 'CTM', type: 'BM', value: 114 },
-				{ id: 15, name: 'Rifar', type: 'BM', value: 114 },
-				{ id: 16, name: 'Royal Thermo', type: 'BM', value: 114 }
-			],
+			// Models: [
+			// 	{ id: 0, name: 'ATM THERMO', type: 'Alum', value: 114 },
+			// 	{ id: 1, name: 'AXIS', type: 'Alum', value: 114 },
+			// 	{ id: 2, name: 'FONDITAL', type: 'Alum', value: 114 },
+			// 	{ id: 3, name: 'Gekon', type: 'Alum', value: 114 },
+			// 	{ id: 4, name: 'Global', type: 'Alum', value: 114 },
+			// 	{ id: 5, name: 'Irsap', type: 'Alum', value: 114 },
+			// 	{ id: 6, name: 'KZTO', type: 'Alum', value: 114 },
+			// 	{ id: 7, name: 'CTM', type: 'Alum', value: 114 },
+			// 	{ id: 8, name: 'AXIS', type: 'Steel', value: 114 },
+			// 	{ id: 9, name: 'Irsap', type: 'Steel', value: 114 },
+			// 	{ id: 10, name: 'Purmo', type: 'Steel', value: 114 },
+			// 	{ id: 11, name: 'ATM THERMO', type: 'BM', value: 114 },
+			// 	{ id: 12, name: 'FONDITAL', type: 'BM', value: 114 },
+			// 	{ id: 13, name: 'Global', type: 'BM', value: 114 },
+			// 	{ id: 14, name: 'CTM', type: 'BM', value: 114 },
+			// 	{ id: 15, name: 'Rifar', type: 'BM', value: 114 },
+			// 	{ id: 16, name: 'Royal Thermo', type: 'BM', value: 114 }
+			// ],
 			TypeRadiator: 'Alum',
 			CurrentModels: [],
 			valuesHeight: [
@@ -123,9 +124,10 @@ new Vue({
 				{ id: 9, height: 3400, value: 1.1 },
 				{ id: 10, height: 3500, value: 1.1 }
 			],
+			TypeArea: 'Многоэтажный дом',
 			ValuesTypeArea : [
-				{ id:1, name:'Панельный многоэтажный дом' }, 
-				{ id:2, name: 'Частный дом' }
+				{ id:1, name:'Многоэтажный дом', value: 'Многоэтажный дом'}, 
+				{ id:2, name: 'Частный дом', value: false }
 			],
 			WallsExterior : [
 				{ id:1, value: 1 },
@@ -135,14 +137,14 @@ new Vue({
 			],
 			//Количество наружных стен
 			WallsInsulation : [
-				{ id:1, dp: 'Стены в два кирпича, или поверхностное утепление', value: 1 },
+				{ id:1, dp: 'Стены утеплены согласно теплотехническим расчетам', value: 0.85 },
 				{ id:2, dp: 'Стены не утеплены', value: 1.27 },
-				{ id:3, dp: 'Стены утеплены согласно теплотехническим расчетам', value: 0.85 },
+				{ id:3, dp: 'Стены в два кирпича, или поверхностное утепление', value: 1 },
 			],
 			RoomAbove: [
-				{ id:1, dp: 'Неотапливаемое помещение либо холодный чердак', value: 1 },
+				{ id:1, dp: 'Отапливаемое помещение', value: 0.8 },
 				{ id:2, dp: 'Утепленная кровля ( утепленный чердак )', value: 0.9 },
-				{ id:3, dp: 'Отапливаемое помещение', value: 0.8 }
+				{ id:3, dp: 'Неотапливаемое помещение либо холодный чердак', value: 1  }
 			],
 			TypeWindow: [
 				{ id:1, dp: 'Деревянные рамы с двойным остеклением', value: 1.27 },
@@ -172,15 +174,15 @@ new Vue({
 			// A Количество внешних стен
 			A: 1.0,
 			// B Ориентация помещения по сторонам света
-			B: 1,
+			B: 1.1,
 			// C Коэффициент утепленности стен
-			C: 1.0,
+			C: 0.85,
 			// D Особенности климатических условий региона
-			D: 1.1,
+			D: 1.3,
 			// E Коэффициент высоты потолков
 			E: 1.05,
 			// F Тип помещения расположенного выше
-			F: 1.0,
+			F: 0.8,
 			// G Коэффициент учета типа установленных окон
 			G: 1.27,
 			// H Коэффициент площади остекления помещения
@@ -260,11 +262,11 @@ new Vue({
 			return this.resultValues.I = this.ValuesConnecting[id].value;
 		},
 		HelperModal(e){
-			console.log(e.target)
+
 		},
-		ModelsRadiator(){
-			return this.CurrentModels = this.Models.filter(model => model.type == this.TypeRadiator)
-		},
+		// ModelsRadiator(){
+		// 	return this.CurrentModels = this.Models.filter(model => model.type == this.TypeRadiator)
+		// },
 		addwindow(value, index){
 			this.windowstotal[index] = value;
 			let main = this.windowstotal.reduce((total, acc) => total += acc,0);
@@ -284,12 +286,33 @@ new Vue({
 			let power = this.$refs.power;
 			let footer = document.getElementById('footer');
 			window.scrollTo({'behavior': 'smooth', 'top': footer.offsetTop})
-			// window.scrollTo(0,document.body.scrollHeight);
+		},
+		preload(){
+			let pre = this.$refs.preloader;
+			setTimeout(() => {
+				pre.classList.add('active')
+			}, 2000);
+			setTimeout(() => {
+				this.show = true
+			}, 3500);
+		},
+		menuToggle(){
+			let description = this.$refs.description;
+			description.classList.toggle('active');
+			document.body.classList.toggle('lock');
+			this.menu ? this.menu = false : this.menu = true
+			if(this.menu){
+				var tl = gsap.timeline({repeat: 0, delay: 0});
+				let blanc = document.querySelectorAll('.blanc-block');
+				Array.from(blanc).forEach(el => {
+					tl.from(el, {opacity: 0, y: 300, duration: 0.7});
+					this.$refs.burger.classList.remove('lock')
+				})
+			}
 		}
 	},
 	computed:{
 		updateWindowAll(){
-			console.log('1')
 			if(this.windowArea <= 0.1){
 				this.resultValues.H = 0.8
 			}else if(this.windowArea > 0.1 && this.windowArea < 0.21){
@@ -305,7 +328,8 @@ new Vue({
 		}	
 	},
 	mounted(){
-		this.ModelsRadiator();
+		this.preload()
+
 	},
 	beforeUpdate(){
 		this.updateWindowAll;
