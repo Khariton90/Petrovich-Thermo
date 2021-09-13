@@ -299,15 +299,11 @@ new Vue({
 		menuToggle(){
 			let description = this.$refs.description;
 			description.classList.toggle('active');
-			document.body.classList.toggle('lock');
 			this.menu ? this.menu = false : this.menu = true
+			document.body.classList.toggle('lock')
 			if(this.menu){
 				var tl = gsap.timeline({repeat: 0, delay: 0});
-				let blanc = document.querySelectorAll('.blanc-block');
-				Array.from(blanc).forEach(el => {
-					tl.from(el, {opacity: 0, y: 300, duration: 0.7});
-					this.$refs.burger.classList.remove('lock')
-				})
+				tl.from('.blanc', {opacity: 0, x: 600, duration: 1.2});
 			}
 		}
 	},

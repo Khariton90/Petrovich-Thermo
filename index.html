@@ -15,7 +15,7 @@
 				<div class="description" ref="description">
 					<div class="blanc">
 						<div class="blanc-block">
-							<h4 class="dp-title">Расчет радиаторов отопления</h4>
+							<h4 class="dp-title title-line">Расчет радиаторов отопления</h4>
 							<p>Принято считать, что для создания нормальных условий в стандартном жилом помещении достаточно 100 Вт на квадратный метр площади.
 							</p>
 							<p>Упрощенный расчет может преподнести сюрприз для хозяев квартиры или дома.</p>
@@ -23,23 +23,23 @@
 								 И причина тому – целый перечень нюансов, которых рассмотренный метод просто не учитывает.</p>
 						</div>
 						<div class="blanc-block">
-							<h4 class="dp-title">Расчет с учетом всех особенностей помещения</h4>
+							<h4 class="dp-title title-line">Расчет с учетом всех особенностей помещения</h4>
 							<p>Итак, за основу берется площадь помещения и всё те же 100 Вт на м². <br> А сама формула выглядит так:</p>
-							<p class="dp-title">Q = S * 100 * A * B * C * D * E * F * H * I * J</p>
+							<p class="dp-title formula">Q <span> = S * 100 * </span>A<span> * </span>B<span> * </span>C<span> * </span>D<span> * </span>E<span> * </span>F<span> * </span>H<span> * </span>I<span> * </span>J</p>
 						</div>
 						<div class="blanc-block">
 							<h4 class="dp-title">Где:</h4>
 							<ul>
-								<li>A - Количество внешних стен</li>
-								<li>B - Ориентация помещения по сторонам света</li>
-								<li>C - Коэффициент утепленности стен</li>
-								<li>D - Особенности климатических условий региона</li>
-								<li>E - Коэффициент высоты потолков</li>
-								<li>F - Тип помещения расположенного выше</li>
-								<li>G - Коэффициент учета типа установленных окон</li>
-								<li>H - Коэффициент площади остекления помещения</li>
-								<li>I - Коэффициент учитывающий схему подключения радиатора</li>
-								<li>J - Коэффициент степени открытости радиатора</li>
+								<li><span>A</span> - Количество внешних стен</li>
+								<li><span>B</span> - Ориентация помещения по сторонам света</li>
+								<li><span>C</span> - Коэффициент утепленности стен</li>
+								<li><span>D</span> - Особенности климатических условий региона</li>
+								<li><span>E</span> - Коэффициент высоты потолков</li>
+								<li><span>F</span> - Тип помещения расположенного выше</li>
+								<li><span>G</span> - Коэффициент учета типа установленных окон</li>
+								<li><span>H</span> - Коэффициент площади остекления помещения</li>
+								<li><span>I</span> - Коэффициент учитывающий схему подключения радиатора</li>
+								<li><span>J</span> - Коэффициент степени открытости радиатора</li>
 							</ul>
 						</div>
 					</div>
@@ -176,7 +176,7 @@
 								<div id="progressBarHeight" ref="progressBarHeight"></div>
 							</div>
 						</div>
-						<p class="title">Тип помещения</p>
+						<!-- <p class="title">Тип помещения</p>
 						<div class="app-wrapper__block area__type">
 							<div class="helper">
 								<div class="helper__modal" >
@@ -190,7 +190,7 @@
 							<select class="select" v-model="TypeArea">
 								<option v-for="areaType in ValuesTypeArea" :key="areaType.id" :value="areaType.value">{{ areaType.name }}</option>
 							</select>
-						</div>
+						</div> -->
 					</div>
 	
 					<!-- Материал радиатора -->
@@ -243,7 +243,7 @@
 								>{{ valueWalls.id }}</option>
 							</select>
 						</div>
-						<div v-show="!TypeArea">
+						<div>
 							<p class="title">Степень утепления стен</p>
 							<div class="walls__insulation">
 								<div class="fake__select animation">
